@@ -1,6 +1,4 @@
 <?php
-$dizimo = function (int $valor): int {
-    return $valor * 0.1;
-};
+$dizimo = fn($valor) => $valor * 0.10;
 
-echo $dizimo;
+echo $dizimo(10);
