@@ -1,10 +1,9 @@
 <?php
-function subsequente() {
-    for($q=0;$q<10;$q++) {
-        echo $q."<br/>";
-    }
-
-    echo "<hr/>";
+function somar( $n1, $n2 ) {
+    return $n1 + $n2;
 }
 
-subsequente();
+$x = somar(1, 3);
+$y = somar(5, 3);
+$soma = somar($x, $y);
+echo "TOTAL: ".$soma;
