@@ -1,6 +1,9 @@
 <?php
-$array = ['a', 'b', 'c', 'd', 'e', 'f'];
+$numeros = [1, 2, 3, 4, 5];
 
-array_splice($array, 1, 1, 'k');
+function somar($subtotal, $item) {
+    $subtotal += $item;
+    return $subtotal;
+}
 
-print_r($array);
+$total = array_reduce($numeros, 'somar');
