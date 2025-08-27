@@ -1,11 +1,15 @@
 <?php
-$array = range(1, 20, 2);
-$array2 = range('a', 'z', 2);
+$array = [
+    'nome' => 'Breno',
+    'idade' => 19,
+    'empresa' => 'B7Web',
+    'cor' => 'azul',
+    'profissao' => 'Fazedor de café'
+];
 
-foreach ($array as $item) {
-    echo $item."<br />";
-}
-
-foreach ($array2 as $item) {
-    echo $item."<br />";
+if(key_exists('idade', $array)) {
+    $idade = $array['idade'];
+    echo $idade.' anos';
+} else {
+    echo 'Não tem idade.';
 }
