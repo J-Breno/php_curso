@@ -1,6 +1,6 @@
 <?php
 $array = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-$retorno = array_slice($array, 0, 2);
+array_splice($array, 1, 1, 'k');
 
-print_r($retorno);
+print_r($array);
