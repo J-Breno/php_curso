@@ -1,6 +1,62 @@
 <?php
-require 'classes/matematica/basico.php';
+class Basico1 {
+    public function somar($x, $y)
+    {
+        return  $x + $y;
+    }
+}
 
-use classes\matematica\Basico as Basico;
+class Basico2 {
+    public function somar($x, $y)
+    {
+        $res = $x;
+        for($q=0;$q<$y;$q++) {
+            $res++;
+        }
+        return $res;
+    }
+}
 
-$basico = new Basico();
+class Matematica {
+    private $basico;
+
+    public function __construct($b)
+    {
+        $this->basico = $b;
+    }
+
+    public function somar($x, $y)
+    {
+        return $this->basico->somar($x, $y);
+    }
+}
+
+$mat = new Matematica(new Basico1());
+echo $mat->somar(10, 15);
+
+interface DatabaseInterface
+{
+    public function listar();
+}
+
+class Database {
+    private $engine;
+
+    public function __construct(DatabaseInterface $eng)
+    {
+        $this->engine = $eng;
+    }
+
+    public function listarTudo() {
+        return $this->engine->listar();
+    }
+}
+
+class MysqlEngine implements DatabaseInterface {
+    public function listar()
+    {
+        //
+    }
+}
+
+$db = new Database(new MysqlEngine());
