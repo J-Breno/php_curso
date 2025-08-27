@@ -1,3 +1,4 @@
-<?php
-rename('texto.txt', 'texto2.txt');
-rename('texto2.txt', 'pagina/texto2.txt');
+<form method="post" action="recebedor.php" enctype="multipart/form-data">
+    <input type="file" name="arquivo" />
+    <input type="submit" value="Enviar" />
+</form>
