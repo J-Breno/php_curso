@@ -7,9 +7,10 @@ $array = [
     'profissao' => 'Fazedor de café'
 ];
 
-if(key_exists('idade', $array)) {
-    $idade = $array['idade'];
-    echo $idade.' anos';
-} else {
-    echo 'Não tem idade.';
-}
+$chaves =  array_keys($array);
+
+print_r($chaves);
+
+$values = array_values($array);
+
+print_r($values);
