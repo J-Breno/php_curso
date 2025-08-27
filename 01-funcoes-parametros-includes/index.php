@@ -20,3 +20,19 @@ $dobrados = array_map(function ($item) {
     return $item * 2;
 }, $numeros);
 print_r($dobrados);
+
+array_pop($numeros);
+array_shift($numeros);
+
+if(in_array(90, $numeros)) {
+    return 'Existe';
+} else {
+    return 'Não existe.';
+}
+
+$pos = array_search($numeros);
+echo sort($numeros);
+echo rsort($numeros );
+asort($numeros);
+
+$nome3 = implode('@', $nmmmeros);''
