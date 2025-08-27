@@ -1,24 +1,6 @@
 <?php
-interface Database {
-    public function listarProdutos();
-    public function adicionarProduto();
-    public function alterarProduto();
-}
+require 'classes/matematica/basico.php';
 
-class MysqlDB implements Database {
-    public function listarProdutos()
-    {
+use classes\matematica\Basico as Basico;
 
-    }
-
-    public function adicionarProduto()
-    {
-        echo "Adicionando com MySql";
-    }
-
-    public function alterarProduto()
-    {
-        
-    }
-
-}
+$basico = new Basico();
