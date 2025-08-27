@@ -1,9 +1,6 @@
 <?php
-$numeros = [1, 2, 3, 4, 5];
+$array = ['João', 19, 'café', 'azul'];
 
-function somar($subtotal, $item) {
-    $subtotal += $item;
-    return $subtotal;
-}
+list($nome, $idade, $bebida, $cor) = $array;
 
-$total = array_reduce($numeros, 'somar');
+echo $nome.' tem '.$idade.' anos e gosta de tomar '.$bebida.' com cor '.$cor;
