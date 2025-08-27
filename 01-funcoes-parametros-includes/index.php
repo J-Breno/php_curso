@@ -1,6 +1,7 @@
 <?php
-echo date('d/m/Y H:i:s');
-$data = '2025-08-27';
-$time = strtotime($data);
-echo date('d/m/Y', $time);
-echo date('d/m/Y', strtotime($data));
+include('sla.php'); // não para em erro
+require('config.php'); // impede a execução em erro
+require_once('header.php'); // puxa só uma vez
+
+echo 'Conteúdo do site...';
+echo "Nome do usuário: ".$usuario;
