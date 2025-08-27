@@ -1,16 +1,6 @@
 <?php
-$array = [
-    'nome' => 'Breno',
-    'idade' => 19,
-    'empresa' => 'B7Web',
-    'cor' => 'azul',
-    'profissao' => 'Fazedor de café'
-];
+$array = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-$chaves =  array_keys($array);
+$retorno = array_slice($array, 0, 2);
 
-print_r($chaves);
-
-$values = array_values($array);
-
-print_r($values);
+print_r($retorno);
