@@ -8,6 +8,8 @@ if($_SESSION['aviso']) {
 }
 ?>
 
+<a href="apagar.php">Apagar Cookie</a>
+
 <form method="POST" action="recebedor.php">
     <label>
         Nome:
