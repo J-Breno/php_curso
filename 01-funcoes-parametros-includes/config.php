@@ -1,3 +1,2 @@
 <?php
-$usuario = "Breno";
-$senha = "13456";
+$versao = "2.2";
