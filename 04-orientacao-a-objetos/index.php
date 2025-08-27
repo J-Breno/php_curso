@@ -1,8 +1,8 @@
 <?php
 class Post {
-    public $likes = 0;
-    public $comments = [];
-    public $author;
+    public int $likes = 0;
+    public array $comments = [];
+    public string $author;
 
     public function aumentarLike() {
         $this->likes++;
