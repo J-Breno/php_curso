@@ -1,13 +1,18 @@
 <?php
-$numero = -8.4;
+$nomeSujo = '   Breno   ';
+$nomeLimpo = trim($nomeSujo);
 
-echo abs($numero); // valor absoluto
-echo pi(); // pi
-echo floor($numero); // arredonda para baixo
-echo ceil($numero); // arredonda para cima
-echo round($numero, 2); //arredonda mais proximo e segundo parÂmetro é a precisão
-$aleatorio = rand(3, 9);
-echo $aleatorio;
-$lista = [1, 2, 3, 4, 5];
-echo max($lista);
-echo min($lista);
+echo "NOME SUJO: ".strlen($nomeSujo)."<br/>";
+echo "NOME LIMPO: ".strlen($nomeLimpo);
+
+$nome = "Breno";
+echo strtolower($nome);
+echo strtoupper($nome);
+
+$nomeAlterado = str_replace("Breno", "João", $nome);
+echo $nomeAlterado;
+
+$nomeCompleto = "João Breno";
+
+$nome2 = substr($nomeCompleto, 3, 3);
+echo $nome2;
