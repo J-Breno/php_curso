@@ -1,10 +1,13 @@
 <?php
-$pdo = new PDO("mysql:dbname=test;host=localhost", "root", "123456");
+require 'config.php';
+?>
+<a href="adcionar.php">ADICIONAR USUÁRIO</a>
 
-$sql = $pdo->query('SELECT * FROM usuarios');
-
-echo "TOTAL: ".$sql->rowCount();
-
-$dados = $sql->fetchAll(PDO::FETCH_ASSOC);
-echo '<pre>';
-print_r($dados);
+<table border="1" width="100%">
+    <tr>
+        <th>ID</th>
+        <th>NOME</th>
+        <th>EMAIL</th>
+        <th>AÇÕES</th>
+    </tr>
+</table>
