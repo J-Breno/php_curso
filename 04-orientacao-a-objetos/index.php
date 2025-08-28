@@ -1,5 +1,10 @@
 <?php
 require 'autoload.php';
 
-$m = new Matematica();
+use matematica\Basica;
+use foto\Upload as Upload;
+
+$m = new Basica();
 echo $m->somar(10, 20);
+
+$upload = new Upload();
