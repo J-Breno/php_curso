@@ -1,19 +1,19 @@
 <?php
 require 'config.php';
+require 'dao/UsuarioDAOMysql.php';
+
+$usuarioDao = new UsuarioDAOMysql($pdo);
 
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 if($name && $email) {
-    $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email");
-    $sql->bindValue(":email", $email);
-    $sql->execute();
+    if($usuarioDao->findByEmail($email) === false){
+        $novoUsuario = new Usuario();
+        $novoUsuario->setNome($name);
+        $novoUsuario->setEmail($email);
 
-    if($sql->rowCount() === 0) {
-        $sql = $pdo->prepare("INSERT INTO usuarios (nome, email) VALUES (:name, :email)");
-        $sql->bindValue(':name', $name);
-        $sql->bindValue(':email', $email);
-        $sql->execute();
+        $usuarioDao->create($novoUsuario);
 
         header("Location: index.php");
         exit;
