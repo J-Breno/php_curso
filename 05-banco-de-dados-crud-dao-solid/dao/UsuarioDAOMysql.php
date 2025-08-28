@@ -95,6 +95,8 @@ class UsuarioDAOMysql implements UsuarioDAO
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $sql = $this->pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
     }
 }
