@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 ?>
-<a href="adcionar.php">ADICIONAR USUÁRIO</a>
+<a href="adicionar.php">ADICIONAR USUÁRIO</a>
 
 <table border="1" width="100%">
     <tr>
