@@ -1,6 +1,8 @@
 <?php
-$senha = '123456';
+var_dump(extension_loaded("gd"));
+print_r(get_loaded_extensions());
+$image = imagecreatetruecolor(300, 300);
+$cor = imagecolorallocate($image, 255, 0, 0);
+imagefill($image, 0, 0, $cor);
 
-$hash = password_hash($senha, PASSWORD_DEFAULT);
-
-echo $hash;
+imagejpeg($image, 'nova_imagem.jpg', 100);
