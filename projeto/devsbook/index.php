@@ -12,7 +12,7 @@ require 'partials/menu.php';
 <section class="feed mt-10">
     <div class="row">
         <div class="column pr-5">
-            <?= require 'partials/feed-editor.php';?>
+            <?php require 'partials/feed-editor.php';?>
         </div>
         <div class="column side pl-5">
             <div class="box banners">
