@@ -1,5 +1,7 @@
 <?php
 
+require_once 'dao/UserDaoMysql.php';
+
 class Auth
 {
     private $pdo;
@@ -16,6 +18,11 @@ class Auth
         if(!empty($_SESSION['token'])) {
             $token = $_SESSION['token'];
 
+            $userDao = new UserDaoMysql($this->pdo);
+            $user = $userDao->findByToken($token);
+            if($user) {
+                return $user;
+            }
         }
 
         header("Location: ".$this->base."/login.php");
