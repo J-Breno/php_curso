@@ -28,4 +28,9 @@ class Auth
         header("Location: ".$this->base."/login.php");
         exit;
     }
+
+    public function validateLogin($email, $password)
+    {
+
+    }
 }
