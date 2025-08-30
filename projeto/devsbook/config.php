@@ -1,6 +1,6 @@
 <?php
 session_start();
-$base = "http://localhost/devsbook/";
+$base = "http://localhost/php_curso/projeto/devsbook";
 $db_name = "devsbook";
 $db_host = "localhost";
 $db_user = "root";

@@ -6,7 +6,7 @@ class User
     public $name;
     public $email;
     public $password;
-    public $birthDate;
+    public $birthdate;
     public $city;
     public $work;
     public $avatar;
@@ -16,4 +16,6 @@ class User
 
 interface UserDAO {
     public function findByToken($token);
+    function findByEmail($email);
+    function update(User $u);
 }
