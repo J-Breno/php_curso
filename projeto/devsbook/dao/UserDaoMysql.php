@@ -30,7 +30,17 @@ class UserDaoMysql implements UserDAO
         if($full) {
             $urDaoMysql = new UserRelationDaoMysql($this->pdo);
             $u->followers = $urDaoMysql->getFollowers($u->id);
+            foreach ($u->followers as $key => $follower_id) {
+                $newUser = $this->findById($follower_id);
+                $u->followers[$key] = $newUser;
+            }
+
             $u->following = $urDaoMysql->getFollowing($u->id);
+            foreach ($u->following as $key => $follower_id) {
+                $newUser = $this->findById($follower_id);
+                $u->following[$key] = $newUser;
+            }
+
             $u->photos = [];
 
         }
