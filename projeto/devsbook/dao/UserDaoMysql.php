@@ -19,7 +19,7 @@ class UserDaoMysql implements UserDAO
         $u->email = $array['email'] ?? '';
         $u->name = $array['name'] ?? '';
         $u->password = $array['password'] ?? '';
-        $u->birthdate = $array['birthDate'] ?? '';
+        $u->birthdate = $array['birthdate'] ?? '';
         $u->city = $array['city'] ?? '';
         $u->work = $array['work'] ?? '';
         $u->avatar = $array['avatar'] ?? '';
