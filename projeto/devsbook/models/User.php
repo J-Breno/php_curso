@@ -18,4 +18,5 @@ interface UserDAO {
     public function findByToken($token);
     function findByEmail($email);
     function update(User $u);
+    function insert(User $u);
 }
