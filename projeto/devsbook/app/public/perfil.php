@@ -18,7 +18,7 @@ $publicId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 $page = filter_input(INPUT_GET, 'p', FILTER_VALIDATE_INT);
 
 if ($publicId === $userInfo->publicId) {
-    header("Location: $base/perfil");
+    header("Location: $base/perfil.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ $userRelationDao = new UserRelationDaoMysql($pdo);
 
 $user = $userDao->findById($publicId, true);
 
-if ($user === false) {
+if (!$user) {
     header("Location: $base");
     exit;
 }
@@ -80,7 +80,7 @@ require_once('../partials/menu.php');
                         <div class="profile-info-data row">
                             <?php if ($publicId !== $userInfo->publicId) : ?>
                                 <div class="profile-info-item m-width-20">
-                                    <a href="<?= $base ?>/follow_action?id=<?= $publicId ?>" class="button">
+                                    <a href="<?= $base ?>/follow_action.php?id=<?= $publicId ?>" class="button">
                                         <?= $isFollowing ? 'Seguindo' : 'Seguir' ?>
                                     </a>
                                 </div>
@@ -140,7 +140,7 @@ require_once('../partials/menu.php');
                                 <span>(<?= count($user->following) ?>)</span>
                             </div>
                             <div class="box-header-buttons">
-                                <a href="<?= $base ?>/amigos?id=<?= $user->publicId ?>">ver todos</a>
+                                <a href="<?= $base ?>/amigos.php?id=<?= $user->publicId ?>">ver todos</a>
                             </div>
                         </div>
                         <div class="box-body friend-list">
@@ -148,7 +148,7 @@ require_once('../partials/menu.php');
                                 <?php foreach ($user->following as $item) : ?>
                                     <?php $friendFirstName = explode(' ', $item->name)[0]; ?>
                                     <div class="friend-icon">
-                                        <a href="<?= $base ?>/perfil?id=<?= $item->publicId ?>">
+                                        <a href="<?= $base ?>/perfil.php?id=<?= $item->publicId ?>">
                                             <div class="friend-icon-avatar">
                                                 <img src="<?= $base ?>/media/avatars/<?= $item->avatar ?>" />
                                             </div>
@@ -173,7 +173,7 @@ require_once('../partials/menu.php');
                                 <span>(<?= count($user->photos) ?>)</span>
                             </div>
                             <div class="box-header-buttons">
-                                <a href="<?= $base ?>/fotos?id=<?= $publicId ?>">ver todos</a>
+                                <a href="<?= $base ?>/fotos.php?id=<?= $publicId ?>">ver todos</a>
                             </div>
                         </div>
                         <div class="box-body row m-20">

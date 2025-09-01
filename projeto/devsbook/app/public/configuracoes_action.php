@@ -33,7 +33,7 @@ if ($name && $email && $birthdate) {
         } else {
             $_SESSION['flash'] = 'E-mail já cadastrado';
 
-            header("Location: $base/configuracoes");
+            header("Location: $base/configuracoes.php");
             exit;
         }
     }
@@ -43,7 +43,7 @@ if ($name && $email && $birthdate) {
 
     if (count($birthdate) !== 3) {
         $_SESSION['flash'] = 'Data de nascimento inválida';
-        header("Location: $base/configuracoes");
+        header("Location: $base/configuracoes.php");
         exit;
     }
 
@@ -52,14 +52,14 @@ if ($name && $email && $birthdate) {
     if (strtotime($birthdate) === false) {
         $_SESSION['flash'] = 'Data de nascimento inválida';
 
-        header("Location: $base/configuracoes");
+        header("Location: $base/configuracoes.php");
         exit;
     }
 
     if (strtotime($birthdate) >= (new DateTime())->modify('-13 years')->getTimestamp()) {
         $_SESSION['flash'] = 'Você precisa ter pelo menos 13 anos';
 
-        header("Location: $base/configuracoes");
+        header("Location: $base/configuracoes.php");
         exit;
     }
 
@@ -77,19 +77,19 @@ if ($name && $email && $birthdate) {
                 } else {
                     $_SESSION['flash'] = 'Senhas não coincidem';
 
-                    header("Location: $base/configuracoes");
+                    header("Location: $base/configuracoes.php");
                     exit;
                 }
             } else {
                 $_SESSION['flash'] = 'Senha antiga não coincide';
 
-                header("Location: $base/configuracoes");
+                header("Location: $base/configuracoes.php");
                 exit;
             }
         } else {
             $_SESSION['flash'] = 'Preencha a senha antiga se quiser alterar a senha';
 
-            header("Location: $base/configuracoes");
+            header("Location: $base/configuracoes.php");
             exit;
         }
     }
@@ -156,7 +156,7 @@ if ($name && $email && $birthdate) {
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';
 
-                header("Location: $base/configuracoes");
+                header("Location: $base/configuracoes.php");
             }
         }
     }
@@ -223,7 +223,7 @@ if ($name && $email && $birthdate) {
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';
 
-                header("Location: $base/configuracoes");
+                header("Location: $base/configuracoes.php");
             }
         }
     }
@@ -232,5 +232,5 @@ if ($name && $email && $birthdate) {
     $_SESSION['flash'] = 'Configurações atualizadas com sucesso';
 }
 
-header("Location: $base/configuracoes");
+header("Location: $base/configuracoes.php");
 exit;

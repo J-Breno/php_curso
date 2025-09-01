@@ -25,7 +25,7 @@ require_once('../partials/menu.php');
             <?php $_SESSION['flash'] = '' ?>
         <?php endif; ?>
 
-        <form method="POST" action="configuracoes_action" class="config-form" enctype="multipart/form-data">
+        <form method="POST" action="configuracoes_action.php" class="config-form" enctype="multipart/form-data">
             <label for="avatar">
                 Novo avatar:<br>
                 <input type="file" name="avatar" id="avatar">

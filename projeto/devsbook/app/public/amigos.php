@@ -97,7 +97,7 @@ require_once('../partials/menu.php');
                                     <?php foreach ($user->followers as $item) : ?>
                                         <?php $friendFirstName = explode(' ', $item->name)[0]; ?>
                                         <div class="friend-icon">
-                                            <a href="<?= $base ?>/perfil?id=<?= $item->publicId ?>">
+                                            <a href="<?= $base ?>/perfil.php?id=<?= $item->publicId ?>">
                                                 <div class="friend-icon-avatar">
                                                     <img src="<?= $base ?>/media/avatars/<?= $item->avatar ?>" />
                                                 </div>
@@ -114,7 +114,7 @@ require_once('../partials/menu.php');
                                     <?php foreach ($user->following as $item) : ?>
                                         <?php $friendFirstName = explode(' ', $item->name)[0]; ?>
                                         <div class="friend-icon">
-                                            <a href="<?= $base ?>/perfil?id=<?= $item->publicId ?>">
+                                            <a href="<?= $base ?>/perfil.php?id=<?= $item->publicId ?>">
                                                 <div class="friend-icon-avatar">
                                                     <img src="<?= $base ?>/media/avatars/<?= $item->avatar ?>" />
                                                 </div>

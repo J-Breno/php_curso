@@ -31,7 +31,7 @@ if ($id) {
             $userRelationDao->insert($relation);
         }
 
-        header("Location: $base/perfil?id=$id");
+        header("Location: $base/perfil.php?id=$id");
         exit;
     }
 }

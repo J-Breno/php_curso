@@ -33,7 +33,7 @@ require_once('../partials/menu.php');
                     <?php foreach ($userList as $userItem) : ?>
                         <?php $friendFirstName = explode(' ', $userItem->name)[0]; ?>
                         <div class="friend-icon">
-                            <a href="<?= $base ?>/perfil?id=<?= $userItem->publicId ?>">
+                            <a href="<?= $base ?>/perfil.php?id=<?= $userItem->publicId ?>">
                                 <div class="friend-icon-avatar">
                                     <img src="<?= $base ?>/media/avatars/<?= $userItem->avatar ?>" />
                                 </div>

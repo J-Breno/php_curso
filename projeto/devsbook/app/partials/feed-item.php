@@ -23,12 +23,12 @@ $createdAt = date('n/d/Y H:i:m', strtotime($item->createdAt));
     <div class="box-body">
         <div class="feed-item-head row mt-20 m-width-20">
             <div class="feed-item-head-photo">
-                <a href="<?= $base ?>/perfil?id=<?= $item->user->publicId ?>">
+                <a href="<?= $base ?>/perfil.php?id=<?= $item->user->publicId ?>">
                     <img src="<?= $base ?>/media/avatars/<?= $item->user->avatar ?>" />
                 </a>
             </div>
             <div class="feed-item-head-info">
-                <a href="<?= $base ?>/perfil?id=<?= $item->user->publicId ?>">
+                <a href="<?= $base ?>/perfil.php?id=<?= $item->user->publicId ?>">
           <span class="fidi-name"><?= $item->user->name ?>
           </span></a>
                 <span class="fidi-action"><?= $actionPhrase ?></span>
@@ -39,7 +39,7 @@ $createdAt = date('n/d/Y H:i:m', strtotime($item->createdAt));
                 <div class="feed-item-head-btn">
                     <img src="<?= $base ?>/assets/images/more.png" />
                     <div class="feed-item-more-window">
-                        <a href="<?= $base ?>/excluir_post_action?id=<?= $item->publicId ?>">Excluir Post</a>
+                        <a href="<?= $base ?>/excluir_post_action.php?id=<?= $item->publicId ?>">Excluir Post</a>
                     </div>
                 </div>
             <?php endif ?>
@@ -56,12 +56,12 @@ $createdAt = date('n/d/Y H:i:m', strtotime($item->createdAt));
                 <?php foreach ($item->comments as $comment) : ?>
                     <div class="fic-item row m-height-10 m-width-20">
                         <div class="fic-item-photo">
-                            <a href="<?= $base ?>/perfil?id=<?= $comment->user->publicId ?>">
+                            <a href="<?= $base ?>/perfil.php?id=<?= $comment->user->publicId ?>">
                                 <img src="<?= $base ?>/media/avatars/<?= $comment->user->avatar ?>" alt="avatar">
                             </a>
                         </div>
                         <div class="fic-item-info">
-                            <a href="<?= $base ?>/perfil?id=<?= $comment->user->publicId ?>">
+                            <a href="<?= $base ?>/perfil.php?id=<?= $comment->user->publicId ?>">
                                 <?= $comment->user->name ?>
                             </a>
                             <?= $comment->body ?>
