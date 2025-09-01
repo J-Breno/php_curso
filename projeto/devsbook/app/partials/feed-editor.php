@@ -40,12 +40,11 @@
 
             let json = await req.json();
 
-            if (json.error) {
-                alert(json.error);
-            } else {
-                // exemplo: recarregar feed ou limpar input
+            if (!json.error) {
                 feedInput.innerText = '';
-                window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 200);
             }
         }
     });

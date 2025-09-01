@@ -29,12 +29,7 @@
         $array = [
             'error' => '',
         ];
-        var_dump($_POST, $_GET);
-        exit;
     }
-
-    var_dump($_POST, $_GET);
-    exit;
 
     header("Content-Type: application/json");
     echo json_encode($array);
