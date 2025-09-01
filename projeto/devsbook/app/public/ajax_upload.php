@@ -71,7 +71,7 @@ if (isset($_FILES['photo']) && empty($_FILES['photo']['tmp_name']) === false) {
 
         imagewebp($finalImage, "./media/uploads/$photoName");
 
-        $newPost = new Post();
+        $newPost = new models\Post();
         $newPost->publicId = $postId;
         $newPost->idUser = $userInfo->publicId;
         $newPost->type = 'photo';

@@ -102,7 +102,7 @@ require_once('../partials/menu.php');
                 </div>
             </div>
         </div>
-
+sadfadf
         <div class="row">
 
             <div class="column side pr-5">
@@ -164,6 +164,7 @@ require_once('../partials/menu.php');
                 <?php endif ?>
 
             </div>
+
             <div class="column pl-5">
                 <?php if (count($user->photos) > 0) : ?>
                     <div class="box">
@@ -181,12 +182,14 @@ require_once('../partials/menu.php');
                             <?php foreach ($user->photos as $key => $item) : ?>
                                 <?php if ($key < 4) : ?>
                                     <div class="user-photo-item">
-                                        <a href="#modal-<?= $key ?>" data-modal-open>
-                                            <img src="<?= $base ?>/media/uploads/<?= $item->body ?>" />
+                                        <a href="#modal-<?= $key ?>" rel="modal:open">
+                                            <img  src="<?= $base ?>/media/uploads/<?= $item->body ?>" />
                                         </a>
-                                        <div id="modal-<?= $key ?>" style="display:none">
-                                            <img src="<?= $base ?>/media/uploads/<?= $item->body ?>" />
+                                        <div id="modal-<?= $key ?>" style="display:none; position:relative;">
+                                            <img src="<?= $base ?>/media/uploads/<?= $item->body ?>" style="max-width:100%; height:auto;" />
+                                            <a href="#" rel="modal:close" class="modal-close-btn">×</a>
                                         </div>
+
                                     </div>
                                 <?php endif ?>
                             <?php endforeach ?>
@@ -236,9 +239,73 @@ require_once('../partials/menu.php');
     </section>
 
     <script>
-        window.onload = function() {
-            var modal = new VanillaModal.default();
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const photoLinks = document.querySelectorAll('.user-photo-item a[rel="modal:open"]');
+
+            photoLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const modalId = this.getAttribute('href');
+                    const modal = document.querySelector(modalId);
+
+                    if (modal) {
+                        modal.style.display = 'block';
+
+                        const overlay = document.createElement('div');
+                        overlay.style.position = 'fixed';
+                        overlay.style.top = '0';
+                        overlay.style.left = '0';
+                        overlay.style.width = '100%';
+                        overlay.style.height = '100%';
+                        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                        overlay.style.zIndex = '1000';
+                        overlay.id = 'custom-modal-overlay';
+                        document.body.appendChild(overlay);
+
+                        modal.style.position = 'fixed';
+                        modal.style.top = '50%';
+                        modal.style.left = '50%';
+                        modal.style.transform = 'translate(-50%, -50%)';
+                        modal.style.zIndex = '1001';
+                        modal.style.backgroundColor = '#fff';
+                        modal.style.padding = '20px';
+                        modal.style.borderRadius = '5px';
+
+                        const closeBtn = modal.querySelector('.modal-close-btn');
+                        if (closeBtn) {
+                            closeBtn.onclick = function(e) {
+                                e.preventDefault();
+                                modal.style.display = 'none';
+                                document.getElementById('custom-modal-overlay')?.remove();
+                            };
+                        }
+
+                        overlay.onclick = function() {
+                            modal.style.display = 'none';
+                            overlay.remove();
+                        };
+
+                        const escHandler = function(e) {
+                            if (e.key === 'Escape') {
+                                modal.style.display = 'none';
+                                document.getElementById('custom-modal-overlay')?.remove();
+                                document.removeEventListener('keydown', escHandler);
+                            }
+                        };
+                        document.addEventListener('keydown', escHandler);
+                    }
+                });
+            });
+
+            document.querySelectorAll('a').forEach(link => {
+                if (!link.getAttribute('rel') || !link.getAttribute('rel').includes('modal:')) {
+                    link.addEventListener('click', function(e) {
+                        return true;
+                    });
+                }
+            });
+        });
     </script>
 
 <?php require_once('../partials/footer.php'); ?>
