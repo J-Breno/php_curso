@@ -2,6 +2,7 @@
 
 use dao\PostDaoMysql;
 use models\Auth;
+use models\Post;
 
 require 'config.php';
 require 'models/Auth.php';

@@ -29,18 +29,24 @@
     feedSubmit.addEventListener('click', async () => {
         let value = feedInput.innerText.trim();
 
-        feedForm.querySelector('input').value = value;
-
         if (value) {
-            let req = await fetch('<?= $base ?>/ajax_post?txt=' + value);
+            let req = await fetch('<?= $base ?>/ajax_post.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'txt=' + encodeURIComponent(value)
+            });
 
             let json = await req.json();
 
-            if(json.error !== ''){
+            if (json.error) {
                 alert(json.error);
-            };
-
-            window.location.href = window.location.href;
+            } else {
+                // exemplo: recarregar feed ou limpar input
+                feedInput.innerText = '';
+                window.location.reload();
+            }
         }
     });
 
@@ -54,7 +60,7 @@
 
         formData.append('photo', photo);
 
-        let req = await fetch('ajax_upload', {
+        let req = await fetch('ajax_upload.php', {
             method: 'POST',
             body: formData
         });

@@ -29,7 +29,7 @@ if ($id && $txt) {
 
     $array = [
         'error' => '',
-        'link' => "$base/perfil?id=$userInfo->publicId",
+        'link' => "$base/perfil.php?id=$userInfo->publicId",
         'avatar' => "$base/media/avatars/$userInfo->avatar",
         'name' => $userInfo->name,
         'body' => $txt

@@ -33,7 +33,7 @@
                     item.innerText = --count;
                 }
 
-                fetch('<?= $base ?>/ajax_like?id=' + id);
+                fetch('<?= $base ?>/ajax_like.php?id=' + id);
             });
         });
 
@@ -50,7 +50,7 @@
                     data.append('id', id);
                     data.append('txt', txt);
 
-                    let req = await fetch('<?= $base ?>/ajax_comment', {
+                    let req = await fetch('<?= $base ?>/ajax_comment.php', {
                         method: 'POST',
                         body: data
                     });
