@@ -31,6 +31,33 @@ if($name && $email) {
         }
     }
 
+    $birthdate = explode('/', $birthdate);
+    if(count($birthdate) != 3) {
+        $_SESSION['flash'] = 'Data de nascimento invalida.';
+        header('Location: '.$base.'/configuracoes.php');
+        exit;
+    }
+
+    $birthdate = $birthdate[2].'-'.$birthdate[1].'-'.$birthdate[0];
+    if(strtotime($birthdate) === false) {
+        $_SESSION['flash'] = 'Data de nascimento invalida.';
+        header('Location: '.$base.'/configuracoes.php');
+        exit;
+    }
+
+    $userInfo->birthdate = $birthdate;
+
+    if(!empty($password)) {
+        if($password === $password_confimation) {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $userInfo->password = $hash;
+        } else {
+            $_SESSION['flash'] = 'As senhas não batem.';
+            header('Location: '.$base.'/configuracoes.php');
+            exit;
+        }
+    }
+
     $userDao->update($userInfo);
 }
 
