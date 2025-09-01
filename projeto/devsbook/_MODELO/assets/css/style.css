@@ -466,6 +466,15 @@ header .head-side {
     padding: 10px 0;
 }
 
+.mini {
+    max-height: 100px;
+
+}
+
+#mini {
+    max-height: 100px;
+}
+
 .config-form input {
     font-size: 14px;
     width: 100%;

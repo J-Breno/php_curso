@@ -17,33 +17,36 @@ require 'partials/menu.php';
         <form enctype="multipart/form-data" id="user-config" method="post" class="config-form" action="configuracoes_action.php">
             <label>
                 Novo Avatar:<br>
-                <input type="file" name="avatar" />
-            </label>
+                <input type="file" name="avatar" /> <br/>
+                <img style="max-height: 100px" id="mini" class="mini" src="<?=$base;?>/media/avatars/<?=$userInfo->avatar;?>" alt=""/>
+            </label> <br>
 
             <label>
                 Novo Capa:<br>
                 <input type="file" name="cover" />
-            </label>
+                <img style="max-height: 100px" id="mini" class="mini" src="<?=$base;?>/media/covers/<?=$userInfo->cover;?>" alt=""/>
+
+            </label> <br>
             <hr>
             <label>
                 Nome Completo:<br>
-                <input type="text" name="name" />
+                <input type="text" name="name" value="<?= $userInfo->name ;?>" />
             </label>
             <label>
                 E-mail:<br>
-                <input type="email" name="email" />
+                <input type="email" name="email" value="<?= $userInfo->email ;?>"/>
             </label>
             <label>
                 Data de nascimento:<br>
-                <input type="text" name="birthdate" />
+                <input type="text" id="birthdate" name="birthdate" value="<?=date('d/m/Y', strtotime($userInfo->birthdate)) ;?>" />
             </label>
             <label>
                 Cidade:<br>
-                <input type="text" name="city" />
+                <input type="text" name="city" value="<?= $userInfo->city ;?>"/>
             </label>
             <label>
                 Trabalho:<br>
-                <input type="text" name="work" />
+                <input type="text" name="work" value="<?= $userInfo->work ;?>" />
             </label>
             <hr>
             <label>
@@ -59,6 +62,13 @@ require 'partials/menu.php';
             <button class="button">Salvar</button>
         </form>
     </section>
+    <script src="https://unpkg.com/imask"></script>
+    <script>
+        IMask(
+            document.getElementById("birthdate"),
+            {mask: '00/00/0000'}
+        );
+    </script>
 <?php
 require 'partials/footer.php';
 ?>

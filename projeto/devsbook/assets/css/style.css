@@ -457,6 +457,15 @@ header .head-side {
     margin: 0px 5px;
 }
 
+.mini {
+    max-height: 100px;
+
+}
+
+#mini {
+    max-height: 100px;
+}
+
 .config-form {
     margin-top: 10px;
 }
