@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<?php require "../index.view.php";?>
+<?php require "../login.view.php";?>
 
 </body>
 </html>
