@@ -3,51 +3,548 @@ require_once('../config.php');
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="utf-8" />
-    <title>Login - Devsbook</title>
+    <title>Cadastro - DevsBook</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
-    <link rel="stylesheet" href="<?= $base ?>/assets/css/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fff1f1',
+                            100: '#ffdfdf',
+                            200: '#ffc5c5',
+                            300: '#ff9d9d',
+                            400: '#ff6464',
+                            500: '#ff2e2e',
+                            600: '#ed1c1c',
+                            700: '#c81010',
+                            800: '#a51010',
+                            900: '#891515',
+                        },
+                        dark: {
+                            50: '#4a4a4a',
+                            100: '#3c3c3c',
+                            200: '#323232',
+                            300: '#2d2d2d',
+                            400: '#222222',
+                            500: '#1a1a1a',
+                            600: '#171717',
+                            700: '#141414',
+                            800: '#101010',
+                            900: '#0a0a0a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff2e2e 0%, #c81010 100%);
+            --dark-gradient: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        body {
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .theme-light {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1a202c;
+        }
+
+        .theme-dark {
+            background: var(--dark-gradient);
+            color: #e2e8f0;
+        }
+
+        .card-light {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-dark {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-light {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            color: #1a202c;
+            transition: all 0.3s ease;
+        }
+
+        .input-light:focus {
+            border-color: #ff2e2e;
+            box-shadow: 0 0 0 3px rgba(255, 46, 46, 0.15);
+        }
+
+        .input-dark {
+            background: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .input-dark:focus {
+            border-color: #ff2e2e;
+            box-shadow: 0 0 0 3px rgba(255, 46, 46, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(255, 46, 46, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 46, 46, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 32px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--dark-gradient);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: var(--primary-gradient);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+
+        .slider .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: white;
+        }
+
+        .slider .sun {
+            left: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .slider .moon {
+            right: 8px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        input:checked + .slider .sun {
+            opacity: 1;
+        }
+
+        input:checked + .slider .moon {
+            opacity: 0;
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .logo-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .decoration-circle {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body>
-<header>
-    <div class="container">
-        <a href="<?= $base ?>"><img src="<?= $base ?>/assets/images/devsbook_logo.png" /></a>
+<body class="font-sans theme-light min-h-screen flex flex-col">
+<!-- Elementos decorativos de fundo -->
+<div class="decoration-circle w-64 h-64 bg-primary-400 top-0 -left-20 md:-left-32"></div>
+<div class="decoration-circle w-72 h-72 bg-primary-500 bottom-0 -right-20 md:-right-32"></div>
+
+<header class="py-5 px-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="<?= $base ?>" class="flex items-center space-x-2">
+            <div class="w-10 h-10 rounded-lg bg-primary-500 flex items-center justify-center shadow-lg">
+                <i class="fas fa-code text-white text-lg"></i>
+            </div>
+            <span class="logo-text text-3xl">DevsBook</span>
+        </a>
+
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider">
+                <i class="fas fa-sun icon sun"></i>
+                <i class="fas fa-moon icon moon"></i>
+            </span>
+        </label>
     </div>
 </header>
-<section class="container main">
-    <form method="POST" action="<?= $base ?>/signup_action.php">
+
+<main class="flex-grow flex items-center justify-center px-4 py-8">
+    <div class="card-light dark:card-dark rounded-2xl p-8 max-w-md w-full transition-all duration-300 animate-slide-up">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mx-auto mb-4 floating-element">
+                <i class="fas fa-user-plus text-primary-600 dark:text-primary-400 text-xl"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Criar conta</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Junte-se à comunidade de desenvolvedores</p>
+        </div>
+
         <?php if (empty($_SESSION['flash']) === false) : ?>
-            <?= $_SESSION['flash'] ?>
-            <?php $_SESSION['flash'] = '' ?>
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 flex items-start dark:bg-red-900/20 dark:border-red-800/30 dark:text-red-300 animate-fade-in">
+                <i class="fas fa-exclamation-circle mt-1 mr-3"></i>
+                <div>
+                    <?= $_SESSION['flash'] ?>
+                    <?php $_SESSION['flash'] = '' ?>
+                </div>
+            </div>
         <?php endif; ?>
 
-        <input placeholder="Digite seu nome completo" class="input" type="text" name="name" id="name" required />
+        <form method="POST" action="<?= $base ?>/signup_action.php" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300" for="name">
+                    Nome Completo
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                    <input
+                            id="name"
+                            placeholder="Digite seu nome completo"
+                            class="input-light dark:input-dark w-full pl-10 pr-3 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            type="text"
+                            name="name"
+                            required
+                    />
+                </div>
+            </div>
 
-        <input placeholder="Digite seu e-mail" class="input" type="email" name="email" id="email" required />
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300" for="email">
+                    E-mail
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input
+                            id="email"
+                            placeholder="Digite seu e-mail"
+                            class="input-light dark:input-dark w-full pl-10 pr-3 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            type="email"
+                            name="email"
+                            required
+                    />
+                </div>
+            </div>
 
-        <input placeholder="Digite sua senha" class="input" type="password" name="password" id="password" required />
-        <input placeholder="Confirme sua senha" class="input" type="password" name="password-confirmation" id="password-confirmation" required />
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300" for="password">
+                    Senha
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input
+                            id="password"
+                            placeholder="Digite sua senha"
+                            class="input-light dark:input-dark w-full pl-10 pr-10 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            type="password"
+                            name="password"
+                            required
+                    />
+                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center toggle-password">
+                        <i class="fas fa-eye text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
 
-        <input placeholder="Digite sua data de nascimento" class="input" type="text" name="birthdate" id="birthdate" required />
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300" for="password-confirmation">
+                    Confirmar Senha
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input
+                            id="password-confirmation"
+                            placeholder="Confirme sua senha"
+                            class="input-light dark:input-dark w-full pl-10 pr-10 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            type="password"
+                            name="password-confirmation"
+                            required
+                    />
+                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center toggle-password">
+                        <i class="fas fa-eye text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
 
-        <input class="button" type="submit" value="Fazer cadastro" id="submit" />
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300" for="birthdate">
+                    Data de Nascimento
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-calendar text-gray-400"></i>
+                    </div>
+                    <input
+                            id="birthdate"
+                            placeholder="DD/MM/AAAA"
+                            class="input-light dark:input-dark w-full pl-10 pr-3 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            type="text"
+                            name="birthdate"
+                            required
+                    />
+                </div>
+            </div>
 
-        <a href="<?= $base ?>/login.php">Já possui uma conta? Faça login</a>
-    </form>
-</section>
+            <button
+                    class="btn-primary text-white font-semibold py-3 px-4 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-dark-700 mt-4"
+                    type="submit"
+            >
+                <i class="fas fa-user-plus mr-2"></i> Criar conta
+            </button>
+
+            <div class="text-center pt-4 border-t border-gray-200 dark:border-gray-700 mt-6">
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Já possui uma conta?
+                    <a
+                            href="<?= $base ?>/login.php"
+                            class="text-primary-600 hover:text-primary-700 font-semibold dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200"
+                    >
+                        Faça login
+                    </a>
+                </p>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="py-6 px-4 text-center">
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+        © 2025 DevsBook - Conectando desenvolvedores ao redor do mundo
+    </p>
+</footer>
 
 <script src="https://unpkg.com/imask"></script>
 <script>
-    IMask(
-        document.getElementById('birthdate'), {
-            mask: '00/00/0000'
+    // Configuração do tema
+    const toggle = document.getElementById('theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+        document.body.classList.remove('theme-light');
+        document.body.classList.add('theme-dark');
+        toggle.checked = true;
+    } else {
+        document.body.classList.remove('theme-dark');
+        document.body.classList.add('theme-light');
+        toggle.checked = false;
+    }
+
+    toggle.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.remove('theme-light');
+            document.body.classList.add('theme-dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('theme-dark');
+            document.body.classList.add('theme-light');
+            localStorage.setItem('theme', 'light');
         }
-    );
+    });
+
+    // Mostrar/ocultar senha
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input');
+            const icon = this.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+
+    // Máscara para data de nascimento
+    const birthdateInput = document.getElementById('birthdate');
+    const birthdateMask = IMask(birthdateInput, {
+        mask: '00/00/0000',
+        pattern: 'd`/m`/Y',
+        blocks: {
+            d: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 31,
+                maxLength: 2
+            },
+            m: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 12,
+                maxLength: 2
+            },
+            Y: {
+                mask: IMask.MaskedRange,
+                from: 1900,
+                to: new Date().getFullYear(),
+                maxLength: 4
+            }
+        },
+        format: function (value) {
+            if (value.length === 8) {
+                return value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+            }
+            return value;
+        },
+        parse: function (value) {
+            return value.replace(/\D/g, '');
+        }
+    });
+
+    // Validação do formulário
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        const password = document.getElementById('password').value;
+        const passwordConfirmation = document.getElementById('password-confirmation').value;
+
+        if (password !== passwordConfirmation) {
+            event.preventDefault();
+            alert('As senhas não coincidem!');
+            return false;
+        }
+
+        // Validação básica da data
+        const birthdateValue = birthdateInput.value;
+        if (birthdateValue.length === 10) {
+            const parts = birthdateValue.split('/');
+            const day = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const year = parseInt(parts[2]);
+
+            if (isNaN(day) || isNaN(month) || isNaN(year) ||
+                day < 1 || day > 31 ||
+                month < 1 || month > 12 ||
+                year < 1900 || year > new Date().getFullYear()) {
+                event.preventDefault();
+                alert('Por favor, insira uma data de nascimento válida!');
+                return false;
+            }
+        }
+    });
+
+    // Efeitos de foco nos inputs
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('ring-2', 'ring-primary-500');
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('ring-2', 'ring-primary-500');
+        });
+    });
 </script>
 </body>
-
 </html>

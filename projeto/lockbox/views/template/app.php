@@ -11,8 +11,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-
-<?php require "../login.view.php";?>
-
+<div class="mx-auto max-w-screen-lg h-screen flex flex-col space-y-6">
+    <div class="flex flex-grow pb-6">
+        <?php require base_path("views/login.view.php"); ?>
+    </div>
+</div>
 </body>
 </html>

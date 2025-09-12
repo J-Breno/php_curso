@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+require __DIR__ . '/../core/Route.php';
+
 use App\Controllers\IndexController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
