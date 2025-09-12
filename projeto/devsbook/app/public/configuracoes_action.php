@@ -153,6 +153,9 @@ if ($name && $email && $birthdate) {
                 imagewebp($finalImage, './media/avatars/' . $avatarName, 100);
 
                 $userInfo->avatar = $avatarName;
+
+                // ADICIONE ESTA LINHA - Atualiza a versão do avatar na sessão
+                $_SESSION['avatar_version'] = time();
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';
 
@@ -220,6 +223,9 @@ if ($name && $email && $birthdate) {
                 imagewebp($finalImage, './media/covers/' . $coverName, 100);
 
                 $userInfo->cover = $coverName;
+
+                // ADICIONE ESTA LINHA - Atualiza a versão da capa na sessão
+                $_SESSION['cover_version'] = time();
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';
 
