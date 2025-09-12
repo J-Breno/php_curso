@@ -26,7 +26,6 @@ if ($name && $email && $birthdate) {
     $userInfo->city = $city;
     $userInfo->work = $work;
 
-    // E-MAIL
     if ($userInfo->email !== $email) {
         if ($userDao->findByEmail($email) === false) {
             $userInfo->email = $email;
@@ -38,7 +37,6 @@ if ($name && $email && $birthdate) {
         }
     }
 
-    // BIRTHDATE
     $birthdate = explode('/', $birthdate);
 
     if (count($birthdate) !== 3) {
@@ -65,7 +63,6 @@ if ($name && $email && $birthdate) {
 
     $userInfo->birthdate = $birthdate;
 
-    // PASSWORD
     if (empty($password) === false) {
         if (empty($lastPassword) === false) {
             $lasthash = hash('sha256', $lastPassword . $userInfo->salt);
@@ -154,7 +151,6 @@ if ($name && $email && $birthdate) {
 
                 $userInfo->avatar = $avatarName;
 
-                // ADICIONE ESTA LINHA - Atualiza a versão do avatar na sessão
                 $_SESSION['avatar_version'] = time();
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';
@@ -164,7 +160,6 @@ if ($name && $email && $birthdate) {
         }
     }
 
-    // COVER
     if (isset($_FILES['cover']) && empty($_FILES['cover']['tmp_name'] === false)) {
         $newCover = $_FILES['cover'];
 
@@ -224,7 +219,6 @@ if ($name && $email && $birthdate) {
 
                 $userInfo->cover = $coverName;
 
-                // ADICIONE ESTA LINHA - Atualiza a versão da capa na sessão
                 $_SESSION['cover_version'] = time();
             } else {
                 $_SESSION['flash'] = 'Formato de imagem não aceita';

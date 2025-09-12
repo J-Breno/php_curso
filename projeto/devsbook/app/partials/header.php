@@ -382,7 +382,6 @@
             }
         }
 
-        /* Animações suaves para transições de tema */
         .theme-transition * {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
@@ -390,7 +389,6 @@
 </head>
 
 <body class="font-sans theme-light min-h-screen flex flex-col theme-transition">
-<!-- Elementos decorativos de fundo -->
 <div class="decoration-circle w-80 h-80 bg-[#ff6b6b] top-0 -left-40"></div>
 <div class="decoration-circle w-96 h-96 bg-[#6366f1] bottom-0 -right-40 animation-delay-2000"></div>
 <div class="decoration-circle w-64 h-64 bg-[#06d6a0] top-1/2 left-1/3 animation-delay-4000"></div>

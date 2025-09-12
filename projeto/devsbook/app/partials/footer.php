@@ -17,7 +17,6 @@
 
 <script src="https://unpkg.com/imask"></script>
 <script>
-    // Configuração do tema
     const toggle = document.getElementById('theme-toggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
@@ -50,7 +49,6 @@
         });
     }
 
-    // Modal personalizado
     function openModal(content) {
         const modal = document.querySelector('.modal');
         const modalContent = document.querySelector('.modal-content');
@@ -80,7 +78,6 @@
             closeModal();
         }
 
-        // Abrir modal com links que tenham rel="modal:open"
         if (e.target.hasAttribute('rel') && e.target.getAttribute('rel') === 'modal:open') {
             e.preventDefault();
             const target = e.target.getAttribute('href');
@@ -89,14 +86,12 @@
         }
     });
 
-    // Tecla ESC para fechar modal
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeModal();
         }
     });
 
-    // Seu script.js original com melhorias
     function setActiveTab(tab) {
         document.querySelectorAll('.tab-item').forEach(function(e){
             if(e.getAttribute('data-for') == tab) {
@@ -130,7 +125,6 @@
         });
     }
 
-    // Feed input
     const feedInputPlaceholder = document.querySelector('.feed-new-input-placeholder');
     const feedInput = document.querySelector('.feed-new-input');
 
@@ -151,7 +145,6 @@
         });
     }
 
-    // Mostrar/ocultar senha
     document.querySelectorAll('.toggle-password').forEach(button => {
         button.addEventListener('click', function() {
             const input = this.parentElement.querySelector('input');
@@ -169,7 +162,6 @@
         });
     });
 
-    // Efeitos de foco nos inputs
     const inputs = document.querySelectorAll('input, textarea');
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -200,7 +192,6 @@
         observer.observe(card);
     });
 
-    // Melhorias para o tema dark - validação visual de formulários
     document.querySelectorAll('input, textarea, select').forEach(element => {
         element.addEventListener('focus', function() {
             this.classList.add('ring-2', 'ring-primary-500');
