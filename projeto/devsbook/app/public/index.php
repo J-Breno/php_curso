@@ -50,18 +50,7 @@ require_once('../partials/menu.php');
             <?php endif ?>
 
         </div>
-        <div class="column side pl-5">
-            <div class="box banners">
-                <div class="box-header">
-                    <div class="box-header-text">Dica:</div>
-                    <div class="box-header-buttons">
-                    </div>
-                </div>
-                <div class="box-body">
-                    <a href="<?= $base ?>/configuracoes.php" style="color: #000; text-decoration: none;">Você pode trocar sua foto de capa e perfil clicando aqui</a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </section>
 

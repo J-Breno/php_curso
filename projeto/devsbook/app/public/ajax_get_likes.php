@@ -12,24 +12,12 @@ $userInfo = $auth->checkToken();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$array = ['error' => '', 'liked' => false, 'likeCount' => 0];
+$array = ['error' => '', 'likeCount' => 0];
 
-if (empty($id) === false) {
+if ($id) {
     $postLikeDao = new PostLikeDaoMysql($pdo);
-
-    // Verificar o estado atual antes de alternar
-    $wasLiked = $postLikeDao->isLiked($id, $userInfo->publicId);
-
-    // Executar o toggle
-    $postLikeDao->likeToggle($id, $userInfo->publicId);
-
-    // Verificar o novo estado após o toggle
-    $isNowLiked = $postLikeDao->isLiked($id, $userInfo->publicId);
-
-    // Obter a contagem atualizada
     $likeCount = $postLikeDao->getLikeCount($id);
 
-    $array['liked'] = $isNowLiked;
     $array['likeCount'] = $likeCount;
 }
 

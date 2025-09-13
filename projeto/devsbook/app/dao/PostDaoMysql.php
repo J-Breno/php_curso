@@ -20,21 +20,43 @@ class PostDaoMysql implements PostDAO
         $this->pdo = $pdo;
     }
 
-    public function insert(Post $post)
-    {
-        $sql = $this->pdo->prepare(
-            "INSERT INTO posts (
-        public_id, id_user, type, created_at, body
-      ) VALUES (
-        :public_id, :id_user, :type, :created_at, :body
-      )"
-        );
-        $sql->bindValue(':public_id', $post->publicId);
-        $sql->bindValue(':id_user', $post->idUser);
-        $sql->bindValue(':type', $post->type);
-        $sql->bindValue(':created_at', $post->createdAt);
-        $sql->bindValue(':body', $post->body);
-        $sql->execute();
+    public function insert(Post $p) {
+        try {
+            error_log("Tentando inserir post: " . $p->publicId);
+
+            $sql = $this->pdo->prepare("INSERT INTO posts 
+            (public_id, id_user, type, created_at, body) 
+            VALUES 
+            (:public_id, :id_user, :type, :created_at, :body)");
+
+            $sql->bindValue(':public_id', $p->publicId);
+            $sql->bindValue(':id_user', $p->idUser);
+            $sql->bindValue(':type', $p->type);
+            $sql->bindValue(':created_at', $p->createdAt);
+            $sql->bindValue(':body', $p->body);
+
+            $result = $sql->execute();
+
+            // Log detalhado
+            error_log("SQL execute result: " . ($result ? 'SUCCESS' : 'FAILURE'));
+
+            if (!$result) {
+                $errorInfo = $this->pdo->errorInfo();
+                error_log("PDO error: " . print_r($errorInfo, true));
+                error_log("SQL: INSERT INTO posts (public_id, id_user, type, created_at, body) VALUES ('"
+                    . $p->publicId . "', '"
+                    . $p->idUser . "', '"
+                    . $p->type . "', '"
+                    . $p->createdAt . "', '"
+                    . $p->body . "')");
+            }
+
+            return $result;
+        } catch (PDOException $e) {
+            error_log("PDO Exception in insert: " . $e->getMessage());
+            error_log("Exception code: " . $e->getCode());
+            return false;
+        }
     }
 
     public function delete(string $postId, string $userId)

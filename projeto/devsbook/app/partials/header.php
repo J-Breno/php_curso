@@ -380,10 +380,114 @@
             .decoration-circle {
                 display: none;
             }
+
+            /* Estilos para a barra de pesquisa mobile */
+            .mobile-search-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                z-index: 100;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .dark .mobile-search-container {
+                background: rgba(15, 23, 42, 0.98);
+            }
+
+            .mobile-search-container.active {
+                transform: translateY(0);
+            }
+
+            .mobile-search-input {
+                width: 100%;
+                padding: 0.75rem 1rem 0.75rem 3rem;
+                border-radius: 12px;
+                border: 1px solid #e2e8f0;
+                background: rgba(255, 255, 255, 0.9);
+                color: #0f172a;
+                font-size: 1rem;
+            }
+
+            .dark .mobile-search-input {
+                background: rgba(15, 23, 42, 0.9);
+                border-color: #334155;
+                color: #f8fafc;
+            }
+
+            .mobile-search-close {
+                position: absolute;
+                right: 1.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: #64748b;
+                font-size: 1.25rem;
+                cursor: pointer;
+            }
+
+            .mobile-search-icon {
+                position: absolute;
+                left: 2rem;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #64748b;
+            }
         }
 
         .theme-transition * {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        #feed-image-preview {
+            border: 2px dashed #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        #feed-image-preview.hidden {
+            display: none;
+        }
+
+        #feed-preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 0.375rem;
+            object-fit: contain;
+        }
+
+        #feed-remove-image {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        #feed-remove-image:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Dark mode styles */
+        .dark #feed-image-preview {
+            border-color: #374151;
+        }
+
+        .dark #feed-remove-image {
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .dark #feed-remove-image:hover {
+            background: rgba(239, 68, 68, 0.25);
         }
     </style>
 </head>
@@ -392,6 +496,25 @@
 <div class="decoration-circle w-80 h-80 bg-[#ff6b6b] top-0 -left-40"></div>
 <div class="decoration-circle w-96 h-96 bg-[#6366f1] bottom-0 -right-40 animation-delay-2000"></div>
 <div class="decoration-circle w-64 h-64 bg-[#06d6a0] top-1/2 left-1/3 animation-delay-4000"></div>
+
+<!-- Container de pesquisa mobile (inicialmente escondido) -->
+<div id="mobileSearchContainer" class="mobile-search-container md:hidden">
+    <div class="relative">
+        <i class="fas fa-search mobile-search-icon"></i>
+        <form method="GET" action="<?= $base ?>/search.php" class="w-full">
+            <input
+                    type="search"
+                    placeholder="Pesquisar..."
+                    name="s"
+                    class="mobile-search-input focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
+                    id="mobileSearchInput"
+            />
+        </form>
+        <button type="button" class="mobile-search-close" id="mobileSearchClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
 
 <header class="py-5 px-4 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-dark-900/90 backdrop-blur-md sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
@@ -420,6 +543,11 @@
             </div>
 
             <div class="flex items-center space-x-4">
+                <!-- Ícone de pesquisa para mobile -->
+                <button id="mobileSearchToggle" class="md:hidden p-2 rounded-xl bg-gray-100 dark:bg-dark-700 hover:bg-gray-200 dark:hover:bg-dark-600 transition-colors">
+                    <i class="fas fa-search text-gray-600 dark:text-gray-400"></i>
+                </button>
+
                 <label class="theme-switch">
                     <input type="checkbox" id="theme-toggle">
                     <span class="slider">
@@ -507,3 +635,77 @@
                 </a>
             </nav>
         </div>
+        <script>
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            const currentTheme = localStorage.getItem('theme');
+
+            // Set initial theme
+            if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+                document.body.classList.add('theme-dark');
+                document.body.classList.remove('theme-light');
+                themeToggle.checked = true;
+            } else {
+                document.body.classList.add('theme-light');
+                document.body.classList.remove('theme-dark');
+                themeToggle.checked = false;
+            }
+
+            // Theme toggle event
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('theme-dark');
+                    document.body.classList.remove('theme-light');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.add('theme-light');
+                    document.body.classList.remove('theme-dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Force dark mode classes on all elements (para garantir que tudo tenha dark mode)
+            document.addEventListener('DOMContentLoaded', function() {
+                // Esta função garante que todos os elementos tenham as classes dark quando necessário
+                const updateDarkMode = () => {
+                    const isDark = document.body.classList.contains('theme-dark');
+                    document.querySelectorAll('*').forEach(el => {
+                        if (isDark) {
+                            el.classList.add('dark');
+                        } else {
+                            el.classList.remove('dark');
+                        }
+                    });
+                };
+
+                updateDarkMode();
+                themeToggle.addEventListener('change', updateDarkMode);
+            });
+
+            // Mobile search functionality
+            const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+            const mobileSearchContainer = document.getElementById('mobileSearchContainer');
+            const mobileSearchClose = document.getElementById('mobileSearchClose');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+
+            if (mobileSearchToggle && mobileSearchContainer) {
+                mobileSearchToggle.addEventListener('click', function() {
+                    mobileSearchContainer.classList.add('active');
+                    setTimeout(() => {
+                        mobileSearchInput.focus();
+                    }, 100);
+                });
+
+                mobileSearchClose.addEventListener('click', function() {
+                    mobileSearchContainer.classList.remove('active');
+                });
+
+                // Fechar a pesquisa ao pressionar ESC
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && mobileSearchContainer.classList.contains('active')) {
+                        mobileSearchContainer.classList.remove('active');
+                    }
+                });
+            }
+        </script>
